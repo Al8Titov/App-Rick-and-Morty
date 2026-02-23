@@ -7,7 +7,6 @@ import NotFoundPage from './pages/NotFoundPage';
 import { getDataByCategory } from './data';
 import './App.css';
 
-
 const VALID_CATEGORIES = ['characters', 'locations', 'episodes'];
 
 function CategoryGuard({ category, children }) {
