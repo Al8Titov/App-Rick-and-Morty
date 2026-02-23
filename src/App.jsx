@@ -5,6 +5,7 @@ import CategoryPage from './pages/CategoryPage';
 import DetailPage from './pages/DetailPage';
 import NotFoundPage from './pages/NotFoundPage';
 import { getDataByCategory } from './data';
+import './App.css';
 
 
 const VALID_CATEGORIES = ['characters', 'locations', 'episodes'];
