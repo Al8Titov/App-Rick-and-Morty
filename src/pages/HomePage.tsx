@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom';
-import { categoryLabels } from '../data';
+import { categoryLabels, type Category } from '../data';
 
-const categories = [
+type CategoryConfig = {
+  path: string;
+  key: Category;
+};
+
+const categories: CategoryConfig[] = [
   { path: '/characters', key: 'characters' },
   { path: '/locations', key: 'locations' },
   { path: '/episodes', key: 'episodes' },
@@ -24,3 +29,4 @@ export default function HomePage() {
     </div>
   );
 }
+
