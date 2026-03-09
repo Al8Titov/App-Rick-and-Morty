@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, useParams } from 'react-router-dom';
 import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
 import { Category } from './data';
+import { PageLoader } from './shared/ui/PageLoader';
 import './App.css';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -35,7 +36,7 @@ export default function App() {
           <Route
             index
             element={(
-              <Suspense fallback={<div className="page-loading">Загрузка...</div>}>
+              <Suspense fallback={<PageLoader />}>
                 <HomePage />
               </Suspense>
             )}
@@ -43,7 +44,7 @@ export default function App() {
           <Route
             path="login"
             element={(
-              <Suspense fallback={<div className="page-loading">Загрузка...</div>}>
+              <Suspense fallback={<PageLoader />}>
                 <LoginPage />
               </Suspense>
             )}
@@ -53,7 +54,7 @@ export default function App() {
             element={(
               <RequireAuth>
                 <CategoryGuard>
-                  <Suspense fallback={<div className="page-loading">Загрузка...</div>}>
+                  <Suspense fallback={<PageLoader />}>
                     <CategoryPage />
                   </Suspense>
                 </CategoryGuard>
@@ -65,7 +66,7 @@ export default function App() {
             element={(
               <RequireAuth>
                 <CategoryGuard>
-                  <Suspense fallback={<div className="page-loading">Загрузка...</div>}>
+                  <Suspense fallback={<PageLoader />}>
                     <DetailPage />
                   </Suspense>
                 </CategoryGuard>
@@ -75,7 +76,7 @@ export default function App() {
           <Route
             path="404"
             element={(
-              <Suspense fallback={<div className="page-loading">Загрузка...</div>}>
+              <Suspense fallback={<PageLoader />}>
                 <NotFoundPage />
               </Suspense>
             )}

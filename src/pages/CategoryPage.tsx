@@ -6,13 +6,11 @@ import {
 } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import {
-  API_BASE_URL,
   categoryLabels,
-  categoryToResource,
-  type ApiListResponse,
   type Category,
   type Item,
 } from '../data';
+import { fetchCategoryPage } from '../shared/api/fetchCategoryPage';
 
 const SORT_ASC = 'createdASC';
 const SORT_DESC = 'createdDESC';
@@ -49,17 +47,7 @@ export default function CategoryPage() {
       try {
         setLoading(true);
         setError(null);
-        const resource = categoryToResource[category];
-        const response = await fetch(
-          `${API_BASE_URL}/${resource}?page=${page}`,
-          { signal: controller.signal },
-        );
-
-        if (!response.ok) {
-          throw new Error(`Ошибка загрузки данных (${response.status})`);
-        }
-
-        const data = (await response.json()) as ApiListResponse<Item>;
+        const data = await fetchCategoryPage(category, page);
 
         setItems((prev) => (page === 1 ? data.results : [...prev, ...data.results]));
         setHasMore(Boolean(data.info.next));
