@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { categoryLabels } from '../data';
+import ErrorBoundary from './ErrorBoundary';
 
 const navItems = [
   { to: '/characters', label: categoryLabels.characters },
@@ -27,8 +28,11 @@ export default function Layout() {
         </nav>
       </header>
       <main className="main">
-        <Outlet />
+        <ErrorBoundary>
+          <Outlet />
+        </ErrorBoundary>
       </main>
     </div>
   );
 }
+
