@@ -1,4 +1,11 @@
-import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react';
 
 type AuthContextValue = {
   isAuthenticated: boolean;
@@ -8,16 +15,30 @@ type AuthContextValue = {
 };
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+const STORAGE_KEY = 'rm-app-user';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<string | null>(null);
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      setUser(saved);
+    }
+  }, []);
 
   const value = useMemo<AuthContextValue>(
     () => ({
       isAuthenticated: user !== null,
       user,
-      login: (username: string) => setUser(username),
-      logout: () => setUser(null),
+      login: (username: string) => {
+        setUser(username);
+        window.localStorage.setItem(STORAGE_KEY, username);
+      },
+      logout: () => {
+        setUser(null);
+        window.localStorage.removeItem(STORAGE_KEY);
+      },
     }),
     [user],
   );
